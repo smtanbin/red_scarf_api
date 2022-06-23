@@ -23,10 +23,14 @@ api.use((req, res, next) => {
   next()
 })
 
-const { show_all } = require("./item")
+const { insert_item, select } = require("./item")
 
-api.get("/add", async (req, res) => {
-  res.send(show_all())
+const entry_by = 'dumy'
+
+
+api.post("/add", async (req, res) => {
+
+  res.send(insert_item(req.body.barcode, req.body.cat_id, entry_by))
 })
 api.get("/update", async (req, res) => {
   res.sendStatus(200)
@@ -35,7 +39,7 @@ api.get("/drop", async (req, res) => {
   res.sendStatus(200)
 })
 api.get("/", async (req, res) => {
-  res.sendStatus(200)
+  res.send(select())
 })
 
 module.exports = api

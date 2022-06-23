@@ -1,5 +1,6 @@
-const { Client } = require("pg")
-const client = new Client()
+const { Pool } = require("pg")
+const config = require('./config');
+const client = new Pool(config.db)
 
 const qurryThis = async (param) => {
   await client.connect()
@@ -7,7 +8,7 @@ const qurryThis = async (param) => {
     if (err) {
       console.log(err.stack)
     } else {
-      return res.rows[0].message
+      return res.rows
     }
     client.end()
   })
