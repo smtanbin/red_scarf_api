@@ -5,6 +5,10 @@ const config = {
         user: 'postgres',
         password: 'root',
         database: 'RED_SCARF',
+        // to auto-exit on idle, without having to shut-down the pool;
+        // see https://github.com/vitaly-t/pg-promise#library-de-initialization
+
+        allowExitOnIdle: true
     },
     listPerPage: 10,
 };

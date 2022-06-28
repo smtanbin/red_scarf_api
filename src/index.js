@@ -37,7 +37,7 @@ api.get("/", async (req, res) => {
 const products = require("./app/products/index")
 api.use("/products", products)
 
-const item = require("./app/item/index")
+const item = require("./app/item/item")
 api.use("/item", item)
 
 module.exports = api

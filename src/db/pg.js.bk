@@ -1,0 +1,54 @@
+const { Pool } = require("pg")
+const config = require('./config');
+const client = new Pool(config.db)
+
+const qurryThis = async (param) => {
+  await client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    }
+  })
+
+  let payload
+
+  await client.query(param, (err, res) => {
+    if (err) {
+      payload = 400
+    } else {
+      payload = res.rows
+      // console.log(res.rows);
+    }
+    // client.end()
+  })
+  return payload
+
+}
+module.exports = { qurryThis }
+
+
+/*
+const { Pool } = require("pg")
+const config = require('./config');
+const client = new Pool(config.db)
+
+const qurryThis = async (param) => {
+  let payload = []
+  await client.connect(err => {
+    if (err) {
+      console.error('connection error', err.stack)
+    }
+  })
+  await client
+    .query(param)
+    .then(result => { payload[0] = result.row, payload[1] = 201 })
+    .catch(e => {
+      console.error(e.stack)
+      payload[0] = e, payload[1] = 400
+    })
+    .then(() => client.end())
+  console.log(payload);
+  return payload
+}
+module.exports = { qurryThis }
+
+*/
